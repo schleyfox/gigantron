@@ -1,1 +1,5 @@
- 
+require 'rubygems'
+require 'rake'
+require 'fileutils'
+
+Dir['tasks/**/*.rake'].each {|r| load r }

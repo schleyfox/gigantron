@@ -22,15 +22,15 @@ class GigantronGenerator < RubiGen::Base
       BASEDIRS.each { |path| m.directory path }
 
       # Create stubs
-       m.file "Rakefile", "Rakefile"
-       m.file "database.yml", "database.yml"
+      m.file "Rakefile", "Rakefile"
+      m.file "database.yml", "database.yml"
 
-       m.file "tasks/import.rake", "tasks/import.rake"
 
-       m.directory "test/models"
-       m.directory "test/tasks"
-       m.file "test/tasks/test_import.rb", "test/tasks/test_import.rb"
-      
+      m.directory "test/models"
+      m.directory "test/tasks"
+
+      m.dependency "task", ['import'], :shebang => options[:shebang]
+     
       m.dependency "install_rubigen_scripts", [destination_root, 'gigantron'], 
         :shebang => options[:shebang], :collision => :force
     end
