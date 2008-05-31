@@ -4,6 +4,13 @@ Manifest.txt
 PostInstall.txt
 README.txt
 Rakefile
+app_generators/gigantron/USAGE
+app_generators/gigantron/gigantron_generator.rb
+app_generators/gigantron/templates/Rakefile
+app_generators/gigantron/templates/database.yml
+app_generators/gigantron/templates/tasks/import.rake
+app_generators/gigantron/templates/test/tasks/test_import.rb
+bin/gigantron
 config/hoe.rb
 config/requirements.rb
 lib/gigantron.rb
@@ -16,7 +23,9 @@ setup.rb
 tasks/deployment.rake
 tasks/environment.rake
 tasks/website.rake
+test/test_generator_helper.rb
 test/test_gigantron.rb
+test/test_gigantron_generator.rb
 test/test_helper.rb
 website/index.html
 website/index.txt
