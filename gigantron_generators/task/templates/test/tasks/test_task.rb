@@ -1,10 +1,11 @@
-require File.dirname(__FILE__) + '../test_helper.rb'
+require File.dirname(__FILE__) + '/../test_helper.rb'
 
 class Test<%= name.capitalize %> < Test::Unit::TestCase
   def setup
+    get_db_conn(GTRON_ENV)
     @rake = Rake::Application.new
     Rake.application = @rake
-    load File.dirname(__FILE__) + '../../tasks/<%= name %>.rake'
+    load File.dirname(__FILE__) + '/../../tasks/<%= name %>.rake'
   end
 
   should "be true" do

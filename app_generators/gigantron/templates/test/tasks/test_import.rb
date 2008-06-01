@@ -1,10 +1,11 @@
-require File.dirname(__FILE__) + '../test_helper.rb'
+require File.dirname(__FILE__) + '/../test_helper.rb'
 
 class TestImport < Test::Unit::TestCase
   def setup
+    get_db_conn(GTRON_ENV)
     @rake = Rake::Application.new
     Rake.application = @rake
-    load File.dirname(__FILE__) + '../../tasks/import.rake'
+    load File.dirname(__FILE__) + '/../../tasks/import.rake'
   end
 
   should "import data" do

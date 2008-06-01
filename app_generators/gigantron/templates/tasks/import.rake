@@ -6,7 +6,5 @@ task :import do
   #
   # Ex:
   #   Foo.import_yaml(FileList["input/*.yml"].to_a)
-  #
-  # It may also be valuable to include database initialization or cleansing
-  # as a dependency of this task
+  get_db_conn(GTRON_ENV)
 end

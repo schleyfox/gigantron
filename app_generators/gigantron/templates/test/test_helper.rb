@@ -1,5 +1,5 @@
 require 'rubygems'
 require 'test/unit'
 require 'shoulda'
-GTRON_ENV = :test
 require File.dirname(__FILE__) + '/../initialize'
+silence_warnings { GTRON_ENV = :test }
