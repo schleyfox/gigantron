@@ -8,8 +8,10 @@ app_generators/gigantron/USAGE
 app_generators/gigantron/gigantron_generator.rb
 app_generators/gigantron/templates/Rakefile
 app_generators/gigantron/templates/database.yml
+app_generators/gigantron/templates/initialize.rb
 app_generators/gigantron/templates/tasks/import.rake
 app_generators/gigantron/templates/test/tasks/test_import.rb
+app_generators/gigantron/templates/test/test_helper.rb
 bin/gigantron
 config/hoe.rb
 config/requirements.rb
@@ -22,6 +24,8 @@ gigantron_generators/task/task_generator.rb
 gigantron_generators/task/templates/tasks/task.rake
 gigantron_generators/task/templates/test/tasks/test_task.rb
 lib/gigantron.rb
+lib/gigantron/tasks/db.rake
+lib/gigantron/tasks/test.rake
 lib/gigantron/version.rb
 script/console
 script/destroy
