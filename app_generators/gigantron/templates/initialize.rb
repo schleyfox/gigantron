@@ -4,7 +4,7 @@
 # magic.  I'm not sure if this is a good idea or not.
 
 # ENV works like in rails, except is :real or :test
-GTRON_ENV ||= :real 
+GTRON_ENV rescue GTRON_ENV = :real 
 
 GTRON_ROOT = File.dirname(__FILE__)
 
