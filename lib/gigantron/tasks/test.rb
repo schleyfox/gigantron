@@ -1,5 +1,7 @@
+require 'rake/testtask'
+
 desc "Test all models and tasks"
-task :test, ['gtron:init_test'] do
+task :test => ['gtron:init_test'] do
   errors = %w(test:models test:tasks).collect do |task|
     begin
       Rake::Task[task].invoke

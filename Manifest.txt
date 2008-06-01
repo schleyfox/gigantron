@@ -24,8 +24,8 @@ gigantron_generators/task/task_generator.rb
 gigantron_generators/task/templates/tasks/task.rake
 gigantron_generators/task/templates/test/tasks/test_task.rb
 lib/gigantron.rb
-lib/gigantron/db.rake
-lib/gigantron/test.rake
+lib/gigantron/tasks/db.rb
+lib/gigantron/tasks/test.rb
 lib/gigantron/version.rb
 script/console
 script/destroy
