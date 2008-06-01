@@ -24,8 +24,11 @@ class GigantronGenerator < RubiGen::Base
       # Create stubs
       m.file "Rakefile", "Rakefile"
       m.file "database.yml", "database.yml"
+      m.file "initialize.rb", "initialize.rb"
 
       m.file "tasks/import.rake", "tasks/import.rake"
+
+      m.file "test/test_helper.rb", "test/test_helper.rb"
 
       m.directory "test/models"
       m.directory "test/tasks"

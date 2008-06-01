@@ -1,5 +1,5 @@
 require 'rubygems'
 require 'rake'
 require 'fileutils'
-
-Dir['tasks/**/*.rake'].each {|r| load r }
+GTRON_ENV = :real
+require File.dirname(__FILE__) + '/initialize'

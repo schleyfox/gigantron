@@ -30,6 +30,7 @@ class TestGigantronGenerator < Test::Unit::TestCase
     assert_directory_exists "tasks/"
     assert_generated_file   "tasks/import.rake"
     assert_directory_exists "test/"
+    assert_generated_file   "test/test_helper.rb"
     assert_directory_exists "test/tasks/"
     assert_generated_file   "test/tasks/test_import.rb"
     assert_directory_exists "test/models/"
@@ -40,6 +41,7 @@ class TestGigantronGenerator < Test::Unit::TestCase
     assert_generated_file   "script/generate"
     assert_generated_file   "database.yml"
     assert_generated_file   "Rakefile"
+    assert_generated_file   "initialize.rb"
   end
   
   private
