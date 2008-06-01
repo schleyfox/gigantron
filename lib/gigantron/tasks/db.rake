@@ -1,4 +1,4 @@
-namespace :db do
+namespace :db => ['gtron:init_real'] do
   desc "Automatically migrate databases according to models"
   task :automigrate do
     puts "Migrating your database"

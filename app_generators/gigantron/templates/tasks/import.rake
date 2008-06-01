@@ -1,5 +1,5 @@
 desc "Import data into the database"
-task :import do
+task :import => ['gtron:init_real'] do
   # Acquire your data (e.g. from input/ or something) and parse it into
   # your database.  Your models should probably be the ones doing the heavy
   # lifting on this one.

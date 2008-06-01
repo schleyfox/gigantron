@@ -1,5 +1,22 @@
 require 'rubygems'
 require 'rake'
 require 'fileutils'
-GTRON_ENV = :real
-require File.dirname(__FILE__) + '/initialize'
+
+require 'gigantron/tasks/test'
+require 'gigantron/tasks/db'
+
+Dir['tasks/**/*.rake'].each {|r| load r }
+
+namespace :gtron do
+  desc "Set up :real environment for gigantron"
+  task :init_real do
+    GTRON_ENV ||= :real
+    require File.dirname(__FILE__) + '/initialize'
+  end
+
+  desc "Set up :test environment for gigantron"
+  task :init_test do
+    GTRON_ENV ||= :test
+    require File.dirname(__FILE__) + '/initialize'
+  end
+end
