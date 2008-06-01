@@ -1,10 +1,25 @@
-h1. gigantron
+h1. Gigantron: Processor of Data
 
 h1. &#x2192; 'gigantron'
 
 
 h2. What
 
+Gigantron is a simple framework for the creation and organization of
+data processing projects. Data-processing transforms are created as Rake tasks
+and data is handled through DataMapper models.
+
+Ruby is great for exploratory data processing.  Data processing projects tend 
+to grow up and encompass large numbers of random scripts and input files.  It 
+is easy to get lost in coding and lose organization.  Gigantron is an attempt 
+to use code generation and random magic to make maintaining organized DP 
+projects simple.  Code is separated into data (models) and operations on the 
+data (tasks).  Code generators stub out these files and the associated tests 
+for the user.
+
+Gigantron was written for my own needs working with atmospheric data and will
+evolve through use to reduce the trivialities that can sometimes dominate the
+work of developers.
 
 h2. Installing
 
@@ -12,9 +27,45 @@ h2. Installing
 
 h2. The basics
 
+<pre>
+# Generate new project
+shell> $ gigantron project
+      create
+      create  tasks
+      create  db
+      create  models
+      create  lib
+      create  test
+      create  Rakefile
+      create  database.yml
+      create  initialize.rb
+      create  tasks/import.rake
+      create  test/test_helper.rb
+      create  test/models
+      create  test/tasks
+      create  test/tasks/test_import.rb
+  dependency  install_rubigen_scripts
+      create    script
+      create    script/generate
+      create    script/destroy
+shell> $ cd project
+# Create new model
+shell> $ script/generate model modis
+      exists  models/
+      create  models/modis.rb
+      exists  test/
+      exists  test/models/
+      create  test/models/test_modis.rb
+shell> $ script/generate task modis_to_kml
+      exists  tasks/
+      create  tasks/modis_to_kml.rake
+      exists  test/
+      exists  test/tasks/
+      create  test/tasks/test_modis_to_kml.rb
+</pre>
 
-h2. Demonstration of usage
-
+One can edit these files to add functionality.  Gigantron by default includes
+ActiveSupport for convenience.
 
 
 h2. How to submit patches

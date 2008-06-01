@@ -1,5 +1,7 @@
-Description:
-  
+Description: 
+Generate the directory and file structure for a gigantron project.
+
   
 Usage:
+shell> $ gigantron projectname
   

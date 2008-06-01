@@ -1,7 +1,4 @@
 
 For more information on gigantron, see http://gigantron.rubyforge.org
 
-NOTE: Change this information in PostInstall.txt 
-You can also delete it if you don't want it.
-
-
+Do you enjoy the tangy zip of miracle whip?

@@ -1,5 +1,11 @@
 Description:
+Generate a DataMapper model for your Gigantron project.
   
   
 Usage:
+shell> $ script/generate model modelname
+
+1. edit models/modelname.rb to create the table schema
+2. write tests in test/models/test_modelname.rb
+3. run 'rake db:automigrate' to have changes updated
   

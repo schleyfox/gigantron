@@ -1,5 +1,10 @@
 Description:
+Generate task for your Gigantron project
   
   
 Usage:
-  
+shell> $ script/generate task taskname
+
+1. edit tasks/taskname.rake to add functionality
+2. write tests in test/tasks/test_taskname.rb
+3. run 'rake taskname' to run task

@@ -2,3 +2,4 @@
 
 * 1 major enhancement:
   * Initial release
+  * It works somewhat, will use in practice to see where it is headed

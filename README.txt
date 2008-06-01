@@ -1,26 +1,48 @@
-= gigantron
+= Gigantron: Processor of Data
 
-* FIX (url)
+http://gigantron.rubyforge.org
+http://github.com/schleyfox/gigantron
 
 == DESCRIPTION:
 
-FIX (describe your package)
+Gigantron is a simple framework for the creation and organization of
+data processing projects. Data-processing transforms are created as Rake tasks
+and data is handled through DataMapper models.
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+Features:
+* Generates folder/file structure for new DP projects
+* Contains generators for both models and tasks
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+Use:
+
+shell> $ gigantron projectname
+
+to generate the project folder and then
+
+shell> $ script/generate model modelname
+
+OR 
+
+shell> $ script/generate task taskname
+
+to add code.
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* RubyGems
+* RubiGen
+* Rake
+* DataMapper
+* ActiveSupport
+* Shoulda
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+sudo gem install gigantron
 
 == LICENSE:
 
