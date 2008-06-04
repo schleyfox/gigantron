@@ -67,6 +67,55 @@ shell> $ script/generate task modis_to_kml
 One can edit these files to add functionality.  Gigantron by default includes
 ActiveSupport for convenience.
 
+h2. Hacking
+
+Gigantron is super minimal now, so modifying it is pretty easy.  The gigantron
+application generator (that which is invoked by the @gigantron@ command) lives
+in @app_generators/gigantron/@.  The template files and the template dir
+structure are in @app_generators/gigantron/templates/@.  When adding new
+templates, directories, or files, add the names first to the tests in 
+@test/test_gigantron_generator.rb@, then the stubs to
+@app_generators/gigantron/templates@, and then finally describe them in the
+manifest section of @app_generators/gigantron/gigantron_generator.rb@.  It
+should look something like
+
+<pre syntax="ruby">
+  def manifest
+    record do |m|
+      ...
+      m.file "new_file", "new_file" #straight file copy
+      m.directory "my_new_dir" #create directory
+      m.template "new_thing", "new_thing" #runs file through ERB when copying
+    end
+  end
+</pre>
+
+It might be handy to know that in @gigantron_generator.rb@ the name provided to the generator can be referenced as @@name@.  This can be used like
+
+<pre syntax="ruby">
+record do |m|
+  m.file "renamed_file", "#{@name}_file"
+end
+</pre>
+
+The same value is available to your templates as just @name@.  You can template
+a file like
+
+<pre syntax="ruby">
+class Test<%%= name.capitalize %> < Test::Unit::TestCase
+  ...
+end
+</pre>
+
+The same process applies to the model and task generator for gigantron
+projects.  These generators live in @gigantron_generators/@.  Modifying them
+is exactly the same as modifying the application generator.
+
+All of this is pretty vanilla "RubiGen":http://rubigen.rubyforge.org, so if in doubt, check out the docos on that fine piece of work.
+
+The only other place for code in Gigantron is is @lib/gigantron/tasks/@ where a few boilerplate test and db tasks live.  I think I ripped the test tasks off of rails.
+
+If you have any questions, do contact me.  I am interested in anything that will make Gigantron suck less and be useful to people.
 
 h2. How to submit patches
 

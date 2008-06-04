@@ -44,6 +44,11 @@ to add code.
 
 sudo gem install gigantron
 
+== HACKING:
+
+Check out the website for a quick overview of how to fiddle with the generators
+behind Gigantron. http://gigantron.rubyforge.org.
+
 == LICENSE:
 
 (The MIT License)

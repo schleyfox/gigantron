@@ -110,6 +110,67 @@ shell&gt; $ script/generate task modis_to_kml
 ActiveSupport for convenience.</p>
 
 
+	<h2>Hacking</h2>
+
+
+	<p>Gigantron is super minimal now, so modifying it is pretty easy.  The gigantron
+application generator (that which is invoked by the <code>gigantron</code> command) lives
+in <code>app_generators/gigantron/</code>.  The template files and the template dir
+structure are in <code>app_generators/gigantron/templates/</code>.  When adding new
+templates, directories, or files, add the names first to the tests in 
+<code>test/test_gigantron_generator.rb</code>, then the stubs to
+<code>app_generators/gigantron/templates</code>, and then finally describe them in the
+manifest section of <code>app_generators/gigantron/gigantron_generator.rb</code>.  It
+should look something like</p>
+
+
+	<p><pre class='syntax'>
+  <span class="keyword">def </span><span class="method">manifest</span>
+    <span class="ident">record</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">m</span><span class="punct">|</span>
+      <span class="punct">...</span>
+      <span class="ident">m</span><span class="punct">.</span><span class="ident">file</span> <span class="punct">&quot;</span><span class="string">new_file</span><span class="punct">&quot;,</span> <span class="punct">&quot;</span><span class="string">new_file</span><span class="punct">&quot;</span> <span class="comment">#straight file copy</span>
+      <span class="ident">m</span><span class="punct">.</span><span class="ident">directory</span> <span class="punct">&quot;</span><span class="string">my_new_dir</span><span class="punct">&quot;</span> <span class="comment">#create directory</span>
+      <span class="ident">m</span><span class="punct">.</span><span class="ident">template</span> <span class="punct">&quot;</span><span class="string">new_thing</span><span class="punct">&quot;,</span> <span class="punct">&quot;</span><span class="string">new_thing</span><span class="punct">&quot;</span> <span class="comment">#runs file through ERB when copying</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+</pre></p>
+
+
+	<p>It might be handy to know that in <code>gigantron_generator.rb</code> the name provided to the generator can be referenced as <code>@name</code>.  This can be used like</p>
+
+
+	<p><pre class='syntax'>
+<span class="ident">record</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">m</span><span class="punct">|</span>
+  <span class="ident">m</span><span class="punct">.</span><span class="ident">file</span> <span class="punct">&quot;</span><span class="string">renamed_file</span><span class="punct">&quot;,</span> <span class="punct">&quot;</span><span class="string"><span class="expr">#{@name}</span>_file</span><span class="punct">&quot;</span>
+<span class="keyword">end</span>
+</pre></p>
+
+
+	<p>The same value is available to your templates as just <code>name</code>.  You can template
+a file like</p>
+
+
+	<p><pre class='syntax'>
+<span class="keyword">class </span><span class="class">Test</span><span class="punct">&lt;%=</span><span class="string"> name.capitalize %&gt; &lt; Test::Unit::TestCase
+  ...
+end<span class="normal">
+</span></span></pre></p>
+
+
+	<p>The same process applies to the model and task generator for gigantron
+projects.  These generators live in <code>gigantron_generators/</code>.  Modifying them
+is exactly the same as modifying the application generator.</p>
+
+
+	<p>All of this is pretty vanilla <a href="http://rubigen.rubyforge.org">RubiGen</a>, so if in doubt, check out the docos on that fine piece of work.</p>
+
+
+	<p>The only other place for code in Gigantron is is <code>lib/gigantron/tasks/</code> where a few boilerplate test and db tasks live.  I think I ripped the test tasks off of rails.</p>
+
+
+	<p>If you have any questions, do contact me.  I am interested in anything that will make Gigantron suck less and be useful to people.</p>
+
+
 	<h2>How to submit patches</h2>
 
 
@@ -138,7 +199,7 @@ rake install_gem</pre>
 
 	<p>Comments are welcome. Send an email to <a href="mailto:ben@pixelmachine.org">Ben Hughes</a></p>
     <p class="coda">
-      <a href="ben@pixelmachine.org">Ben Hughes</a>, 1st June 2008<br>
+      <a href="ben@pixelmachine.org">Ben Hughes</a>, 3rd June 2008<br>
       Theme extended from <a href="http://rb2js.rubyforge.org/">Paul Battley</a>
     </p>
 </div>
