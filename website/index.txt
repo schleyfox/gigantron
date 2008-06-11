@@ -7,7 +7,8 @@ h2. What
 
 Gigantron is a simple framework for the creation and organization of
 data processing projects. Data-processing transforms are created as Rake tasks
-and data is handled through DataMapper models.
+and data is handled through ActiveRecord models. (DataMapper was the original
+plan, but it has problems playing nicely with JRuby for now).
 
 Ruby is great for exploratory data processing.  Data processing projects tend 
 to grow up and encompass large numbers of random scripts and input files.  It 

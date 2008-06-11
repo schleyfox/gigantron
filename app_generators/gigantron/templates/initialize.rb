@@ -15,12 +15,12 @@ require 'activesupport'
 #set up autoload paths
 Dependencies.load_paths << "#{GTRON_ROOT}/lib/"
 
-gem 'dm-core'
-require 'data_mapper'
+require 'active_record'
 
 
 def get_db_conn(env)
-  DataMapper.setup(:default, YAML::load(File.read("database.yml"))[env])
+  ActiveRecord::Base.establish_connection(
+    YAML::load(File.read("database.yml"))[env])
   Dir["models/**/*.rb"].each {|r| load r }
   nil
 end

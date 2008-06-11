@@ -1,6 +1,3 @@
-class <%= name.capitalize %>
-  include DataMapper::Resource
-
-  property :id, Integer, :serial => true
+class <%= name.capitalize %> < ActiveRecord::Base
 
 end

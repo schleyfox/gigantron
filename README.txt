@@ -7,7 +7,9 @@ http://github.com/schleyfox/gigantron
 
 Gigantron is a simple framework for the creation and organization of
 data processing projects. Data-processing transforms are created as Rake tasks
-and data is handled through DataMapper models.
+and data is handled through ActiveRecord* models.
+
+* Will switch back to DataMapper once it plays nice with JRuby
 
 == FEATURES/PROBLEMS:
 
@@ -36,7 +38,7 @@ to add code.
 * RubyGems
 * RubiGen
 * Rake
-* DataMapper
+* ActiveRecord
 * ActiveSupport
 * Shoulda
 
