@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), "test_generator_helper.rb")
 
 
-class TestModelGenerator < Test::Unit::TestCase
+class TestMigrationGenerator < Test::Unit::TestCase
   include RubiGen::GeneratorTestHelper
 
   def setup
@@ -27,13 +27,14 @@ class TestModelGenerator < Test::Unit::TestCase
   #   bare_teardown - place this in teardown method to destroy the TMP_ROOT or APP_ROOT folder after each test
 
   def test_generator_without_options
-    name = "FooBaz"
-    run_generator('model', [name], sources)
-    assert_directory_exists "models/"
-    assert_generated_file   "models/foo_baz.rb"
-    assert_directory_exists "test/"
-    assert_directory_exists "test/models/"
-    assert_generated_file   "test/models/test_foo_baz.rb"
+    name = "CreateFoo"
+    run_generator('migration', [name], sources)
+    assert_directory_exists "db/"
+    assert_directory_exists "db/migrate/"
+    assert_generated_file   "db/migrate/001-create_foo.rb"
+    name2 = "AlterFoo"
+    run_generator('migration', [name2], sources)
+    assert_generated_file  "db/migrate/002-alter_foo.rb"
   end
 
   private

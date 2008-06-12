@@ -1,4 +1,4 @@
-class ModelGenerator < RubiGen::Base
+class MigrationGenerator < RubiGen::Base
 
   default_options :author => nil
 
@@ -13,13 +13,12 @@ class ModelGenerator < RubiGen::Base
 
   def manifest
     record do |m|
-      m.directory "models/"
-      m.template  "models/model.rb", "models/#{@name.underscore}.rb"
-      
-      m.directory "test/"
-      m.directory "test/models/"
-      m.template  "test/models/test_model.rb", 
-        "test/models/test_#{name.underscore}.rb"
+      # Ensure appropriate folder(s) exists
+      m.directory "db/"
+      m.directory "db/migrate/"
+      m.template  "db/migrate/migration.rb", 
+        "db/migrate/#{next_migration_num}-#{name.underscore}.rb"
+
     end
   end
 
@@ -48,5 +47,15 @@ EOS
       # Templates can access these value via the attr_reader-generated methods, but not the
       # raw instance variable value.
       # @author = options[:author]
+    end
+
+    def next_migration_num
+      #blegh, catalog existing migrations, find next
+      current = Dir.glob(
+        "#{@destination_root}/db/migrate/[0-9][0-9][0-9]-*.rb").map{|x|
+          /(\d{3})-.*\.rb/.match(x)[1].to_i
+      }.max
+      current ||= 0
+      "%03d" % current.succ
     end
 end

@@ -27,13 +27,13 @@ class TestTaskGenerator < Test::Unit::TestCase
   #   bare_teardown - place this in teardown method to destroy the TMP_ROOT or APP_ROOT folder after each test
 
   def test_generator_without_options
-    name = "bar"
+    name = "FooBar"
     run_generator('task', [name], sources)
     assert_directory_exists "tasks/"
-    assert_generated_file   "tasks/#{name}.rake"
+    assert_generated_file   "tasks/foo_bar.rake"
     assert_directory_exists "test/"
     assert_directory_exists "test/tasks"
-    assert_generated_file   "test/tasks/test_#{name}.rb"
+    assert_generated_file   "test/tasks/test_foo_bar.rb"
   end
 
   private

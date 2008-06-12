@@ -14,10 +14,11 @@ class TaskGenerator < RubiGen::Base
   def manifest
     record do |m|
       m.directory "tasks/"
-      m.template  "tasks/task.rake", "tasks/#{@name}.rake"
+      m.template  "tasks/task.rake", "tasks/#{@name.underscore}.rake"
       m.directory "test/"
       m.directory "test/tasks/"
-      m.template  "test/tasks/test_task.rb", "test/tasks/test_#{@name}.rb"
+      m.template  "test/tasks/test_task.rb", 
+        "test/tasks/test_#{@name.underscore}.rb"
     end
   end
 
