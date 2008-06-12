@@ -52,8 +52,8 @@ EOS
     def next_migration_num
       #blegh, catalog existing migrations, find next
       current = Dir.glob(
-        "#{@destination_root}/db/migrate/[0-9][0-9][0-9]-*.rb").map{|x|
-          /(\d{3})-.*\.rb/.match(x)[1].to_i
+        "#{@destination_root}/db/migrate/[0-9][0-9][0-9]_*.rb").map{|x|
+          /(\d{3})_.*\.rb/.match(x)[1].to_i
       }.max
       current ||= 0
       "%03d" % current.succ
