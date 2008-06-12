@@ -43,11 +43,59 @@ class TestGigantronGenerator < Test::Unit::TestCase
     assert_generated_file   "Rakefile"
     assert_generated_file   "initialize.rb"
   end
+
+=begin
+  context "Generated project" do
+    setup do
+      @original_pwd = Dir.pwd
+      run_generator('gigantron', [APP_ROOT], sources)
+      Dir.chdir APP_ROOT
+    end
+
+    teardown { Dir.chdir @original_pwd }
+
+    context "with migration and model" do
+      setup do
+        run_generator('model', ['Foo'], sources)
+        run_generator('migration', ['CreateFoos'], sources)
+        File.open("#{APP_ROOT}/db/migrate/001_create_foo.rb", "w") do |f|
+          f.puts %q{
+          class CreateFoos < ActiveRecord::Migration
+            def self.up
+              create_table :foos do |t|
+                t.string :title
+              end
+
+              %w(Foo Bar).each do |t|
+                Foo.new(:title => t).save
+              end
+            end
+
+            def self.down
+              drop_table :foos
+            end
+          end
+          }
+          silence_warnings { GTRON_ENV = :test }
+          get_db_conn(GTRON_ENV)
+          Gigantron.migrate_dbs
+        end
+      end
+
+      should "create test db" do
+        assert File.exists? "#{APP_ROOT}/db/test.sqlite3"
+      end
+
+      should "create table foos and populate" do
+        assert_equal Foo.find(:all).size, 2
+      end
+    end
+  end
+=end
   
   private
   def sources
-    [RubiGen::PathSource.new(:test, File.join(File.dirname(__FILE__),"..", generator_path))
-    ]
+    [RubiGen::PathSource.new(:test, File.join(File.dirname(__FILE__),"..", generator_path))]
   end
   
   def generator_path
