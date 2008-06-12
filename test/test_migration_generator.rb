@@ -31,10 +31,10 @@ class TestMigrationGenerator < Test::Unit::TestCase
     run_generator('migration', [name], sources)
     assert_directory_exists "db/"
     assert_directory_exists "db/migrate/"
-    assert_generated_file   "db/migrate/001-create_foo.rb"
+    assert_generated_file   "db/migrate/001_create_foo.rb"
     name2 = "AlterFoo"
     run_generator('migration', [name2], sources)
-    assert_generated_file  "db/migrate/002-alter_foo.rb"
+    assert_generated_file  "db/migrate/002_alter_foo.rb"
   end
 
   private
