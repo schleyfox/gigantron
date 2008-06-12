@@ -15,6 +15,14 @@ app_generators/gigantron/templates/test/test_helper.rb
 bin/gigantron
 config/hoe.rb
 config/requirements.rb
+gigantron_generators/mapreduce_task/USAGE
+gigantron_generators/mapreduce_task/mapreduce_task_generator.rb
+gigantron_generators/mapreduce_task/templates/mapreduce/mr_task.rb
+gigantron_generators/mapreduce_task/templates/tasks/task.rake
+gigantron_generators/mapreduce_task/templates/test/tasks/test_task.rb
+gigantron_generators/migration/USAGE
+gigantron_generators/migration/migration_generator.rb
+gigantron_generators/migration/templates/db/migrate/migration.rb
 gigantron_generators/model/USAGE
 gigantron_generators/model/model_generator.rb
 gigantron_generators/model/templates/models/model.rb
@@ -39,6 +47,8 @@ test/test_generator_helper.rb
 test/test_gigantron.rb
 test/test_gigantron_generator.rb
 test/test_helper.rb
+test/test_mapreduce_task_generator.rb
+test/test_migration_generator.rb
 test/test_model_generator.rb
 test/test_task_generator.rb
 website/index.html

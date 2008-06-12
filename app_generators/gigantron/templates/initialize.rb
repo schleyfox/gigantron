@@ -19,8 +19,15 @@ require 'active_record'
 
 
 def get_db_conn(env)
+  #set up logging
+  ActiveRecord::Base.logger = Logger.new("#{GTRON_ROOT}/log/#{env}.log")
+
+  #load in dbs from database.yml
   ActiveRecord::Base.establish_connection(
     YAML::load(File.read("database.yml"))[env])
+
+  #load all models
   Dir["models/**/*.rb"].each {|r| load r }
+
   nil
 end

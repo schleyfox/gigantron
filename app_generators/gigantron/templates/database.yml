@@ -1,7 +1,8 @@
 :real:
-  :adapter: sqlite3
-  :dbfile: db/real.sqlite3
+  :adapter: jdbcsqlite3
+  :url: jdbc:sqlite:db/real.sqlite3
 
 :test:
-  :adapter: sqlite3
-  :dbfile: db/test.sqlite3
+  :adapter: jdbcsqlite3
+  :url: jdbc:sqlite:db/test.sqlite3
+

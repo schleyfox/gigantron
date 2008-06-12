@@ -76,5 +76,6 @@ EOS
       models
       lib
       test
+      log
     )
 end

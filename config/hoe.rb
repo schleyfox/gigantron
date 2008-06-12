@@ -48,7 +48,12 @@ RDOC_OPTS = ['--quiet', '--title', 'gigantron documentation',
     "--main", "README",
     "--inline-source"]
 
+
 class Hoe
+  silence_warnings do
+    RUBY_FLAGS = "-I#{%w(lib ext bin test).join(File::PATH_SEPARATOR)}" +
+      (ENV['RUBY_DEBUG'] ? " #{ENV['RUBY_DEBUG']}" : '')
+  end
   def extra_deps
     @extra_deps.reject! { |x| Array(x).first == 'hoe' }
     @extra_deps
