@@ -17,7 +17,7 @@ class MigrationGenerator < RubiGen::Base
       m.directory "db/"
       m.directory "db/migrate/"
       m.template  "db/migrate/migration.rb", 
-        "db/migrate/#{next_migration_num}-#{name.underscore}.rb"
+        "db/migrate/#{next_migration_num}_#{name.underscore}.rb"
 
     end
   end
