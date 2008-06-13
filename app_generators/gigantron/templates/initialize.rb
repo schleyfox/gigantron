@@ -24,10 +24,10 @@ def get_db_conn(env)
 
   #load in dbs from database.yml
   ActiveRecord::Base.establish_connection(
-    YAML::load(File.read("database.yml"))[env])
+    YAML::load(File.read("#{GTRON_ROOT}/database.yml"))[env])
 
   #load all models
-  Dir["models/**/*.rb"].each {|r| load r }
+  Dir["#{GTRON_ROOT}/models/**/*.rb"].each {|r| load r }
 
   nil
 end
