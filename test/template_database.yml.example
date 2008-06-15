@@ -1,0 +1,9 @@
+# JRuby
+#:test:
+#  :adapter: jdbcsqlite3
+#  :url: jdbc:sqlite:<%= GTRON_ROOT %>/db/test.sqlite3
+
+# Ruby 1.8
+#:test:
+#  :adapter: sqlite3
+#  :database: <%= File.expand_path GTRON_ROOT %>/db/test.sqlite3
