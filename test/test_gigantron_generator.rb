@@ -34,6 +34,7 @@ class TestGigantronGenerator < Test::Unit::TestCase
     setup do
       run_generator('gigantron', [APP_ROOT], sources)
 
+      silence_warnings { GTRON_ENV = :test }
       initialize_gigantron
       configure_gigantron_db
       get_db_conn(GTRON_ENV)
@@ -71,7 +72,6 @@ class TestGigantronGenerator < Test::Unit::TestCase
   end
 
   def initialize_gigantron
-    silence_warnings { GTRON_ENV = :test }
     require File.join(APP_ROOT, "initialize.rb")
     require 'gigantron/migrator'
   end
