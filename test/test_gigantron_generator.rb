@@ -78,9 +78,8 @@ class TestGigantronGenerator < Test::Unit::TestCase
   
   def configure_gigantron_db
     if !File.exists? "test/template_database.yml"
-      puts "Configure test DB in 'test/template_database.yml'!"
+      flunk "No Database Configuration. Configure test DB in 'test/template_database.yml'!"
     end
-    assert File.exists?("test/template_database.yml")
     File.open("#{APP_ROOT}/database.yml", "w") do |f|
       f.write ERB.new(
         File.read("test/template_database.yml")).result(binding)
