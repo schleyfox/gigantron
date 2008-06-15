@@ -34,33 +34,18 @@ class TestGigantronGenerator < Test::Unit::TestCase
     setup do
       run_generator('gigantron', [APP_ROOT], sources)
 
-      silence_warnings { GTRON_ENV = :test }
-      require File.join(APP_ROOT, "initialize.rb")
-      require 'gigantron/migrator'
-      if !File.exists? "test/template_database.yml"
-        puts "Configure test DB in 'test/template_database.yml'!"
-      end
-      assert File.exists?("test/template_database.yml")
-      File.open("#{APP_ROOT}/database.yml", "w") do |f|
-        f.write ERB.new(
-          File.read("test/template_database.yml")).result(binding)
-      end
-
+      initialize_gigantron
+      configure_gigantron_db
       get_db_conn(GTRON_ENV)
     end
 
     context "with migration and model" do
       setup do
         run_generator('model', ['Foo'], sources)
-        if !File.exists? "#{APP_ROOT}/db/migrate/001_create_foos.rb"
-          run_generator('migration', ['CreateFoos'], sources)
-        end
-
-        assert File.exists?("#{APP_ROOT}/db/migrate/001_create_foos.rb")
-        FileUtils.cp("test/template_migration.rb", 
-          "#{APP_ROOT}/db/migrate/001_create_foos.rb")
-
+        
+        create_test_migration
         get_db_conn(GTRON_ENV)
+
         ENV["VERBOSE"] = "false"
         Gigantron.migrate_dbs
       end
@@ -83,5 +68,32 @@ class TestGigantronGenerator < Test::Unit::TestCase
   
   def generator_path
     "app_generators"
+  end
+
+  def initialize_gigantron
+    silence_warnings { GTRON_ENV = :test }
+    require File.join(APP_ROOT, "initialize.rb")
+    require 'gigantron/migrator'
+  end
+  
+  def configure_gigantron_db
+    if !File.exists? "test/template_database.yml"
+      puts "Configure test DB in 'test/template_database.yml'!"
+    end
+    assert File.exists?("test/template_database.yml")
+    File.open("#{APP_ROOT}/database.yml", "w") do |f|
+      f.write ERB.new(
+        File.read("test/template_database.yml")).result(binding)
+    end
+  end
+
+  def create_test_migration
+    if !File.exists? "#{APP_ROOT}/db/migrate/001_create_foos.rb"
+      run_generator('migration', ['CreateFoos'], sources)
+    end
+ 
+    assert File.exists?("#{APP_ROOT}/db/migrate/001_create_foos.rb")
+    FileUtils.cp("test/template_migration.rb", 
+      "#{APP_ROOT}/db/migrate/001_create_foos.rb")
   end
 end
