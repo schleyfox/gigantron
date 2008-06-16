@@ -11,7 +11,7 @@ class TestGigantronGenerator < Test::Unit::TestCase
     bare_teardown
   end
   
-  def test_generator_without_options
+  should "generate correct directory and file structure" do
     run_generator('gigantron', [APP_ROOT], sources)
     assert_directory_exists "tasks/"
     assert_generated_file   "tasks/import.rake"
@@ -35,6 +35,8 @@ class TestGigantronGenerator < Test::Unit::TestCase
       run_generator('gigantron', [APP_ROOT], sources)
 
       silence_warnings { GTRON_ENV = :test }
+      ENV["GTRON_ENV"] = "test"
+
       initialize_gigantron
       configure_gigantron_db
       get_db_conn(GTRON_ENV)
@@ -57,6 +59,20 @@ class TestGigantronGenerator < Test::Unit::TestCase
 
       should "create table foos and populate" do
         assert_equal Foo.find(:all).size, 2
+      end
+    end
+
+    context "with Rake tasks" do
+      setup do
+        @rake = Rake::Application.new
+        Rake.application = @rake
+        load "#{APP_ROOT}/tasks/import.rake"
+      end
+
+      teardown { Rake.application = nil }
+
+      should "run empty import task" do
+        assert @rake['import'].invoke
       end
     end
   end

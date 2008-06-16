@@ -6,5 +6,5 @@ task :import do
   #
   # Ex:
   #   Foo.import_yaml(FileList["input/*.yml"].to_a)
-  get_db_conn(GTRON_ENV)
+  get_db_conn(ENV["GTRON_ENV"] || GTRON_ENV)
 end

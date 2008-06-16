@@ -19,6 +19,7 @@ require 'active_record'
 
 
 def get_db_conn(env)
+  env = env.to_sym
   #set up logging
   ActiveRecord::Base.logger = Logger.new("#{GTRON_ROOT}/log/#{env}.log")
 
