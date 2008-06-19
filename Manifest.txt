@@ -44,6 +44,9 @@ setup.rb
 tasks/deployment.rake
 tasks/environment.rake
 tasks/website.rake
+test/template_database.yml
+test/template_database.yml.example
+test/template_migration.rb
 test/test_generator_helper.rb
 test/test_gigantron.rb
 test/test_gigantron_generator.rb
