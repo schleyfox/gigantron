@@ -33,7 +33,7 @@
     <h1>Gigantron: Processor of Data</h1>
     <div id="version" class="clickable" onclick='document.location = "http://rubyforge.org/projects/gigantron"; return false'>
       <p>Get Version</p>
-      <a href="http://rubyforge.org/projects/gigantron" class="numbers">0.0.1</a>
+      <a href="http://rubyforge.org/projects/gigantron" class="numbers">0.1.0</a>
     </div>
     <h1>&#x2192; &#8216;gigantron&#8217;</h1>
 
@@ -43,7 +43,8 @@
 
 	<p>Gigantron is a simple framework for the creation and organization of
 data processing projects. Data-processing transforms are created as Rake tasks
-and data is handled through DataMapper models.</p>
+and data is handled through ActiveRecord models. (DataMapper was the original
+plan, but it has problems playing nicely with JRuby for now).</p>
 
 
 	<p>Ruby is great for exploratory data processing.  Data processing projects tend 
@@ -185,6 +186,8 @@ is exactly the same as modifying the application generator.</p>
 
 
 <pre>cd gigantron
+cp test/template_database.yml.example test/template_database.yml
+vim test/template_database.yml
 rake test
 rake install_gem</pre>
 
@@ -199,7 +202,7 @@ rake install_gem</pre>
 
 	<p>Comments are welcome. Send an email to <a href="mailto:ben@pixelmachine.org">Ben Hughes</a></p>
     <p class="coda">
-      <a href="ben@pixelmachine.org">Ben Hughes</a>, 3rd June 2008<br>
+      <a href="ben@pixelmachine.org">Ben Hughes</a>, 18th June 2008<br>
       Theme extended from <a href="http://rb2js.rubyforge.org/">Paul Battley</a>
     </p>
 </div>

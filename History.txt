@@ -1,3 +1,13 @@
+== 0.1.1 2008-06-19
+* 1 minor enhancement:
+  * Migrations are now created with model
+* 1 major bugfix:
+  * use camelcase instead of capitalize in code generators
+== 0.1.0 2008-06-18
+
+* Millions of major enhancements:
+  * Now uses ActiveRecord
+  * Better tests
 == 0.0.1 2008-05-31
 
 * 1 major enhancement:

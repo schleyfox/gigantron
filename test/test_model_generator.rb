@@ -34,6 +34,11 @@ class TestModelGenerator < Test::Unit::TestCase
     assert_directory_exists "test/"
     assert_directory_exists "test/models/"
     assert_generated_file   "test/models/test_foo_baz.rb"
+
+    #check migration
+    assert_directory_exists "db/"
+    assert_directory_exists "db/migrate/"
+    assert_generated_file   "db/migrate/001_create_foo_bazs.rb"
   end
 
   private

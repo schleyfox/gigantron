@@ -12,10 +12,7 @@ EXTRA_DEPENDENCIES = [
   ['rubigen', '>= 1.3.2'],
   ['rake', '>= 0.8.1'],
   ['Shoulda', '>= 1.1.1'],
-  ['dm-core', '>= 0.9.1'],
-  ['do_sqlite3', '>= 0.9.1'],
-  ['data_objects', '>= 0.9.1'],
-  ['dm-more', '>= 0.9.1']
+  ['activerecord', '>= 2.0.2'],
 ]    # An array of rubygem dependencies [name, version]
 
 @config_file = "~/.rubyforge/user-config.yml"

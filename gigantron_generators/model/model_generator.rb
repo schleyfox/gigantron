@@ -20,6 +20,8 @@ class ModelGenerator < RubiGen::Base
       m.directory "test/models/"
       m.template  "test/models/test_model.rb", 
         "test/models/test_#{name.underscore}.rb"
+
+      m.dependency "migration", ["Create#{@name.pluralize.camelcase}"]
     end
   end
 

@@ -103,7 +103,7 @@ The same value is available to your templates as just @name@.  You can template
 a file like
 
 <pre syntax="ruby">
-class Test<%%= name.capitalize %> < Test::Unit::TestCase
+class Test<%%= name.camelcase %> < Test::Unit::TestCase
   ...
 end
 </pre>
@@ -129,6 +129,8 @@ h2. How to submit patches
 h3. Build and test instructions
 
 <pre>cd gigantron
+cp test/template_database.yml.example test/template_database.yml
+vim test/template_database.yml
 rake test
 rake install_gem</pre>
 

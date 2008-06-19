@@ -1,3 +1,3 @@
-class <%= name.capitalize %> < ActiveRecord::Base
+class <%= name.camelcase %> < ActiveRecord::Base
 
 end

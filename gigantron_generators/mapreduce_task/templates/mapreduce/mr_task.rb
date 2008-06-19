@@ -1,4 +1,4 @@
-class MapReduce<%= name.capitalize %>
+class MapReduce<%= name.camelcase %>
   include SkynetDebugger
 
   def self.run
