@@ -1,0 +1,9 @@
+# JRuby
+#:test:
+#  :adapter: jdbcsqlite3
+#  :url: jdbc:sqlite:db/test.sqlite3
+
+# Ruby 1.8
+#:test:
+#  :adapter: sqlite3
+#  :database: db/test.sqlite3
