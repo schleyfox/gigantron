@@ -29,7 +29,7 @@ class TestGigantronGenerator < Test::Unit::TestCase
     assert_directory_exists "db/"
     assert_directory_exists "script/"
     assert_generated_file   "script/generate"
-    assert_generated_file   "database.yml"
+    assert_generated_file   "database.yml.example"
     assert_generated_file   "Rakefile"
     assert_generated_file   "initialize.rb"
   end
