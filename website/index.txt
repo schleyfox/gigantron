@@ -26,6 +26,15 @@ h2. Installing
 
 <pre syntax="ruby">sudo gem install gigantron</pre>
 
+This should handle the major dependencies automatically except for your
+database adapter.  If you are on JRuby the gem is 
+@activerecord-jdbcsqlite3-adapter@ for sqlite3 and 
+@activerecord-jdbcmysql-adapter@ for mysql.  On MRI be sure to install
+@sqlite3-ruby@ if you are using sqlite.
+
+Note: JDBCSqlite3 is still a work in progress and migrations are basically 
+broken for it.
+
 h2. The basics
 
 <pre>

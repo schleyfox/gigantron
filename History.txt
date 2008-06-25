@@ -1,3 +1,10 @@
+== 0.1.3 2008-06-24
+* 2 major bugfixes:
+  * fix broken gem
+  * make dependencies part of the hoe configuration
+== 0.1.2 2008-06-22
+* 1 major enhancement
+  * Shoulda activerecord helpers are now bundled
 == 0.1.1 2008-06-19
 * 1 minor enhancement:
   * Migrations are now created with model
