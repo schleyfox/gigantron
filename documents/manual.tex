@@ -134,8 +134,9 @@ The connection can be tested by running \texttt{rake import}, which is currently
 
 \subsection*{Importing Data}
 
+Data come in many formats and file types. With luck, these formats are well thought out, well documented, and well adapted for the sorts of transformations that are required.  Luck does not always factor into data processing jobs, so it is advantageous to transform the diverse formats into a standard storage backend.  Relational Databases provide a pretty general way to store data in a way that it can be easily accessed.  ActiveRecord handles much of the heavy lifting with data access.
 
-
+For this application, coordinates are provided as comma separated values with one shape per file.
 % Sample code block
 %\begin{code}{name}{description}
 %### @include "filename" 1
