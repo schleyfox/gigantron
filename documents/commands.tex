@@ -1,0 +1,20 @@
+\newcommand{\versal}[1]{\noindent{\Huge #1\kern-.10em}}
+\newcommand{\file}[1]{{\ttfamily\bf #1}}
+\newcommand{\ident}[1]{{\ttfamily\it #1}}
+\newcommand{\shell}[1]{{\ttfamily\it #1}}
+\newcommand{\python}[1]{{\ttfamily\it #1}}
+
+\newenvironment{code}[2]
+    {
+        \begin{center}
+        \label{#1}\ovalbox{
+            \begin{minipage}{.8\textwidth}
+            \begin{center}
+            {\bf Code: #1} -- {\it #2}
+            \end{center}
+            \end{minipage}
+        }
+        \end{center}
+        \sffamily\small
+    }
+    {\normalsize\rmfamily\marginpar{$\hookleftarrow$}}

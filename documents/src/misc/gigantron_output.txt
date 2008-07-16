@@ -1,0 +1,24 @@
+$ gigantron kml-shapes
+      create  
+      create  tasks
+      create  db
+      create  models
+      create  lib
+      create  test
+      create  log
+      create  Rakefile
+      create  database.yml.example
+      create  initialize.rb
+      create  tasks/import.rake
+      create  test/test_helper.rb
+      create  test/models
+      create  test/tasks
+      create  test/tasks/test_import.rb
+      create  lib/shoulda
+      create  lib/shoulda/general.rb
+      create  lib/shoulda/private_helpers.rb
+      create  lib/shoulda/active_record_helpers.rb
+  dependency  install_rubigen_scripts
+      create    script
+      create    script/generate
+      create    script/destroy

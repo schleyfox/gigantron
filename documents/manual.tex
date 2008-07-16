@@ -1,0 +1,145 @@
+\documentclass[12pt]{article}
+\include{preamble}
+\include{styles/emacs}
+\include{commands}
+
+\begin{document}
+
+\title{Gigantron: Processor of Data}
+\author{Benjamin S. Hughes}
+\maketitle
+
+\begin{abstract}
+Gigantron is a simple framework for the creation and organization of data processing projects. Data-processing transforms are created as Rake tasks and data is handled through ActiveRecord models.
+
+Ruby is great for exploratory data processing. Data processing projects tend to grow up and encompass large numbers of random scripts and input files. It is easy to get lost in coding and lose organization. Gigantron is an attempt to use code generation and random magic to make maintaining organized DP projects simple. Code is separated into data (models) and operations on the data (tasks). Code generators stub out these files and the associated tests for the user.
+
+Gigantron was written for my own needs working with atmospheric data and will evolve through use to reduce the trivialities that can sometimes dominate the work of developers.
+\end{abstract}
+
+\section*{Basics}
+
+Gigantron is built on top of the rich libraries and utilities that also form the Rails web framework.  These tools are reused to add familiar functionality to data processing projects.  Rails revolutionized web development by combining a``convention over configuration'' application skeleton with a set of useful libraries that encapsulate common tasks.  This left programmers free to focus on the actual business logic behind their programs.  Gigantron extends these tools and philosophies to the realm of data processing. As such, users familiar with Rails will be at an advantage.
+
+The main external components of Gigantron are Rake and ActiveRecord.  Rake is a ruby \texttt{make} utility.  It is used to define tasks and their dependencies so that repetitive jobs can be easily automated.  In Gigantron, Rake tasks are used as the interface to transformations on the data.  ActiveRecord is an object-relational mapper (ORM).  It maps database tables (from MySQL, SQLite, or some other RDBMS) to native ruby objects. This simplifies data access and makes data manipulation more consistent and conceptually simple.
+
+There is a wealth of information available on both of these tools on the Internet.  The following sections will provide a brief overview, but further research into these tools is advised.
+
+\subsection*{ActiveRecord}
+
+ActiveRecord is used to model the data on which the application operates.  This includes abstracting its retrieval from the database and the application of data validity rules.  The models separate the actual representation of the data from the conceptual model of its operation.  ActiveRecord provides these models with an automatic mapping to a database and encapsulates many of the common cases for models.
+
+In the simplest case, the model can be constructed by creating a new class with a name that is the singular form of the plural table name.  For example, a table \texttt{bears} would be mapped to a class \texttt{Bear}.  The code for this model would be:
+
+\begin{code}{bear1}{Simple example of ActiveRecord}
+### @include "src/misc/active_record_example.rb" "Simplest Model"
+### @end
+\end{code}
+
+At this point, the \texttt{Bear} class has variable accessor methods for all the database fields.  If the \texttt{bears} table has a color and age field, all objects of the \texttt{Bear} class get the methods \texttt{color}, \texttt{color=}, \texttt{age}, and \texttt{age=}.  In ActiveRecord, models are saved to the database through the \texttt{save} method.
+
+\begin{code}{bear2}{Basic Usage of a model class}
+### @include "src/misc/active_record_example.rb" "Simple Usage"
+### @end
+\end{code}
+
+ActiveRecord contains many class methods that can be used to model associations. Relationships between data can be expressed through the \texttt{has\_many}, \texttt{has\_one}, \texttt{belongs\_to}, and \texttt{has\_and\_belongs\_to\_many} methods.  As an example a bear can have many claws.  On the database end, the \texttt{claws} table would contain a \texttt{bear\_id} foreign key.  The corresponding ActiveRecord model would be:
+
+\begin{code}{bear3}{Simple associations}
+### @include "src/misc/active_record_example.rb" "Simple association"
+### @end
+\end{code}
+
+ActiveRecord contains additional functionality that can be helpful in the use of Gigantron. The book \textit{Agile Web Development with Ruby on Rails} and the online documentation for ActiveRecord are excellent references for uncovering more features.
+
+\subsection*{Rake}
+
+Rake is a ruby \texttt{make} substitute.  It allows the user to define tasks and dependencies in standard ruby code.  Rake uses a Domain Specific Language to simplify the creation of make-style tasks.  The following example illustrates how to create a simple task to count numbers in Rake.
+
+\begin{code}{rake-example1}{Basic Rake Task}
+### @include "src/misc/rake_example.rb" "Simple Task"
+### @end
+\end{code}
+
+The first line provides the description string for the task.   The task is named ``count\_to\_one\_hundred'', and the code that is associated with it is in the provided block.  The description string allows rake to list the available tasks with descriptions when run from the command line with the \texttt{-T} option. 
+
+\begin{code}{rake-output}{Shell output for \texttt{rake -T}}
+### @include "src/misc/rake_output.txt" 1
+### @end
+\end{code}
+
+Tasks are run from the command line by using the \texttt{rake} executable and the name of the task.  To run the example task, type the command \texttt{rake count\_to\_one \_hundred}. 
+
+The dependencies of a task are specified as an array of symbols to the \texttt{task} method.  The following code creates a task that prints out numbers from a file after adding 10 to them.  It is dependent on having the ``count\_to\_one\_hundred'' task executed before it runs.
+
+\begin{code}{rake-example2}{Dependent Rake Task}
+### @include "src/misc/rake_example.rb" "Dependent Task"
+### @end
+\end{code}
+
+In addition to tasks that are called by names explicitly, a default task can be defined that runs when rake is run without arguments.
+
+\begin{code}{rake-example3}{Default Rake Task}
+### @include "src/misc/rake_example.rb" "Default Task"
+### @end
+\end{code}
+
+\section*{Installation}
+
+Gigantron is packaged through RubyGems and automatically installs all dependencies.  In addition to the \texttt{gigantron} package, a database adapter is needed.  This depends on choice of Ruby implementation and choice in RDBMS.  SQLite3 is the most convenient option, and the default gigantron \texttt{database.yml.example} contains sample configurations for it.  SQLite3 requires minimal external configuration, but MySQL offers compelling performance advantages.
+
+\begin{code}{installation}{Installation Commands}
+### @include "src/misc/install.txt" "Gigantron"
+### @end
+\end{code}
+
+\section*{Using Gigantron}
+
+Gigantron is designed to help with data processing jobs.  As an introduction to the features and usage, this section will go through the creation of a sample application.  This project will take data from a comma-separated value file and draw polygons in Google Earth based on these values. While this is a trivial example, it is very similar to real projects in the field.  The application will be developed in iterations to demonstrate the flexibility of the system.
+
+\subsection*{Prerequisites}
+
+In addition to the gigantron framework, this sample project requires the RubyKML library.  RubyKML is a simple wrapper over the Keyhole Markup Language (KML) that is used by Google Earth. This can be installed with the following command:
+
+\begin{code}{rubykml-install}{RubyKML Installation}
+### @include "src/misc/install.txt" "RubyKML"
+### @end
+\end{code}
+
+\subsection*{Creating a New Project}
+
+Gigantron, like rails, has an executable code generator to create the application skeleton.  This sets up the proper directory structure and generates the initial files. To create a new Gigantron project, type at the command line \texttt{gigantron projectname}
+
+This sample project will be called \textit{kml-shapes}.  Running \texttt{gigantron} will set up a new project in the \texttt{kml-shapes/} folder.
+
+\begin{code}{new-project}{Generating the new project kml-shapes}
+### @include "src/misc/gigantron_output.txt" 1
+### @end
+\end{code}
+
+All of the code generators produce similar summaries of their operations.  Going forward, output from running code generators will not be included in this document.
+
+\subsection*{Creating a Database Connection}
+
+Once the project is created, it needs to be configured to connect to a database.  This step depends on choice in database and ruby implementation.  I use JRuby and MySQL for this guide.
+
+Copy \texttt{database.yml.example} to \texttt{database.yml} and edit it, substituting in the correct values for the configuration.
+
+\begin{code}{database.yml}{Sample config for JRuby and MySQL}
+### @include "src/kml-shapes/database.yml" 1
+### @end
+\end{code}
+
+The connection can be tested by running \texttt{rake import}, which is currently an empty task that tries to connect to the database.  The \texttt{import} task will be fleshed out shortly.
+
+\subsection*{Importing Data}
+
+
+
+% Sample code block
+%\begin{code}{name}{description}
+%### @include "filename" 1
+%### @end
+%\end{code}
+
+\end{document}

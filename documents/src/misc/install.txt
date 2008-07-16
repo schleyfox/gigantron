@@ -1,0 +1,13 @@
+### @export "Gigantron"
+$ sudo gem install gigantron
+
+# JRuby
+$ sudo gem install activerecord-jdbcsqlite3-adapter \
+  activerecord-jdbcmysql-adapter
+#MRI
+$ sudo gem install sqlite3-ruby
+### @end
+### @export "RubyKML"
+$ sudo gem install schleyfox-ruby_kml \
+  -s http://gems.github.com
+### @end

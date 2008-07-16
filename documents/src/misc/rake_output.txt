@@ -1,0 +1,3 @@
+$ rake -T
+(in /home/ben/projects/gigantron_docs/src)
+rake count_to_one_hundred  # Counts from 1 to 100 into a file

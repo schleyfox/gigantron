@@ -1,0 +1,19 @@
+
+DOC_SRC = "manual"
+DOC_FINAL = "manual-final"
+JUNK = [FileList["manual-final.*"], FileList["*.aux"], FileList["*.log"],
+  FileList["styles/*.aux"]]
+
+task :default => :build
+
+desc "Build document from latex"
+task :build do
+  puts `idio #{DOC_SRC}.tex > #{DOC_FINAL}.tex`
+  puts `latex -halt-on-error #{DOC_FINAL}`
+  puts `dvipdf #{DOC_FINAL}`
+end
+
+desc "Clean up directory"
+task :clean do
+  JUNK.map{|fl| fl.each {|fn| FileUtils.rm(fn) rescue nil } }
+end
