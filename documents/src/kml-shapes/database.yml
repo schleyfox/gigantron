@@ -4,7 +4,7 @@
   :database: kml_shapes_real
   :hostname: localhost
   :username: root
-  :password: 
+  :password: w00w00
   :port: 3306
 
 :test:
@@ -12,7 +12,7 @@
   :database: kml_shapes_test
   :hostname: localhost
   :username: root
-  :password: 
+  :password: w00w00
   :port: 3306
 
 

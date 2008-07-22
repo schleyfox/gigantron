@@ -136,7 +136,39 @@ The connection can be tested by running \texttt{rake import}, which is currently
 
 Data come in many formats and file types. With luck, these formats are well thought out, well documented, and well adapted for the sorts of transformations that are required.  Luck does not always factor into data processing jobs, so it is advantageous to transform the diverse formats into a standard storage backend.  Relational Databases provide a pretty general way to store data in a way that it can be easily accessed.  ActiveRecord handles much of the heavy lifting with data access.
 
-For this application, coordinates are provided as comma separated values with one shape per file.
+For this application, coordinates are provided as comma separated values with one shape per file. 
+
+\begin{code}{shape1}{input/shape1.csv -- Triangle over Izmir}
+### @include "src/kml-shapes/input/shape1.csv" 1
+### @end
+\end{code}
+
+This leads intuitively to the notion that the application will operate on shapes that will, in turn, have many coordinates. Running the following commands will generate the \texttt{Shape} and \texttt{Coordinate} models.  
+
+\begin{Verbatim}
+script/generate model shape
+script/generate model coordinate
+\end{Verbatim}
+
+In addition to the models in \texttt{models/}, two migrations are created in \texttt{db/migrate/}. These are used to create the \texttt{shapes} and \texttt{coordinates} tables.
+
+\begin{code}{create-shapes}{db/migrate/001\_create\_shapes.rb}
+### @include "src/kml-shapes/db/migrate/001_create_shapes.rb" 1
+### @end
+\end{code}
+
+\begin{code}{create-coordinates}{db/migrate/002\_create\_coordinates.rb}
+### @include "src/kml-shapes/db/migrate/002_create_coordinates.rb" "CreateCoordinates"
+### @end
+\end{code}
+
+Running \texttt{rake db:migrate} will create the tables.  The next step is to flesh out the models with the relationships between Shape and Coordinate.  Now is also the time to add methods to allow for data importing.
+
+\begin{code}{shape-model}{models/shape.rb}
+### @include "src/kml-shapes/models/shape.rb" 1
+### @end
+\end{code}
+
 % Sample code block
 %\begin{code}{name}{description}
 %### @include "filename" 1
