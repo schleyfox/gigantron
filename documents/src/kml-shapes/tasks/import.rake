@@ -1,10 +1,9 @@
 desc "Import data into the database"
 task :import do
-  # Acquire your data (e.g. from input/ or something) and parse it into
-  # your database.  Your models should probably be the ones doing the heavy
-  # lifting on this one.
-  #
-  # Ex:
-  #   Foo.import_yaml(FileList["input/*.yml"].to_a)
   get_db_conn(ENV["GTRON_ENV"] || GTRON_ENV)
+  input_path = ENV["INPUT_PATH"] || "#{GTRON_ROOT}/input"
+
+  Shape.delete_all
+  Coordinate.delete_all
+  Shape.from_directory(input_path)
 end

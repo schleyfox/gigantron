@@ -138,6 +138,8 @@ Data come in many formats and file types. With luck, these formats are well thou
 
 For this application, coordinates are provided as comma separated values with one shape per file. 
 
+\pagebreak
+
 \begin{code}{shape1}{input/shape1.csv -- Triangle over Izmir}
 ### @include "src/kml-shapes/input/shape1.csv" 1
 ### @end
@@ -168,6 +170,93 @@ Running \texttt{rake db:migrate} will create the tables.  The next step is to fl
 ### @include "src/kml-shapes/models/shape.rb" 1
 ### @end
 \end{code}
+
+This code creates a class method on Shape that allows it to read in all the \texttt{.csv} files in the directory specified by \texttt{dir\_name}.  For each of these files, a new shape is created with the name taken from the filename.  Shape then farms out the file parsing to the Coordinate class.
+
+\begin{code}{coordinate-model}{models/coordinate.rb}
+### @include "src/kml-shapes/models/coordinate.rb" 1
+### @end
+\end{code}
+
+The file is read in, split into lines, and the lines are split out into components for the creation of a new Coordinate.  This completes the model code for the loading of data.
+
+The next step is to create the import task.  This task is very simple, as all of the heavy lifting is delegated to the models.  The essential part of the import task is to create an environment for a clean import and then determine the locations of data to be loaded.  Often this means clearing out the database tables at the start of the task.  It is a good idea to allow the input path to be specified through an environment variable.  This aids in testing later.
+
+\begin{code}{import-task}{tasks/import.rake}
+### @include "src/kml-shapes/tasks/import.rake" 1
+### @end
+\end{code}
+
+Running this with \texttt{rake import} should fill the database with the correct and expected values.
+
+\subsection*{Processing Data}
+
+Now that the data are safely in the database, they can be transformed, changed, and output in any number of ways.  The goal in this application is to produce KML that will display the shapes in Google Earth.  To do this, a new task is used.To create this task, run
+
+\begin{Verbatim}
+script/generate task export_kml
+\end{Verbatim}
+
+KML is an XML format for displaying items in Google Earth.  It can become somewhat tricky and verbose.  Fortunately, the ruby wrapper, RubyKML, makes generating it much easier.  The first step is setting up the environment and output path.
+
+\begin{code}{export-setup}{tasks/export\_kml.rake -- Task environment}
+### @include "src/kml-shapes/tasks/export_kml.rake" "Set up task env"
+### @end
+\end{code}
+
+RubyKML uses XML Builder to create the KML output.  The root object in this heirarchy is the \texttt{KMLFile}.  In addition, a root document object is also needed.  It provides a display name for the side bar in Google Earth.
+
+\begin{code}{export-kml1}{tasks/export\_kml.rake -- KML Boilerplate}
+### @include "src/kml-shapes/tasks/export_kml.rake" "KML boilerplate"
+### @end
+\end{code}
+
+This task should generate a KML shape for every shape in the database.  Each shape must be placed inside a placemark.  The name is set to the shape's name.
+
+\begin{code}{export-placemark}{tasks/export\_kml.rake -- Loop through shapes}
+### @include "src/kml-shapes/tasks/export_kml.rake" "Loop through shapes"
+### @end
+\end{code}
+
+Boundaries for the polygon must be generated from the coordinates.  The format for RubyKML is \texttt{[lon, lat, alt]}.  The first and last boundary coordinate should be the same point so that Google Earth can connect the points.
+
+\begin{code}{export-bounds}{tasks/export\_kml.rake -- Create Boundaries}
+### @include "src/kml-shapes/tasks/export_kml.rake" "Set boundaries"
+### @end
+\end{code}
+
+The next step is to create the polygon.  Once created, the polygon must be added to the hierarchy inside of the placemark.
+
+\begin{code}{export-bounds}{tasks/export\_kml.rake -- Create Polygon}
+### @include "src/kml-shapes/tasks/export_kml.rake" "Create polygon"
+### @end
+\end{code}
+
+Finally, the document should be added to the KMLFile.  The KMLFile should then be written to disk.
+
+
+\begin{code}{export-kml2}{tasks/export\_kml.rake -- Output KML}
+### @include "src/kml-shapes/tasks/export_kml.rake" "Output KML"
+### @end
+\end{code}
+
+\texttt{rake export\_kml} will create the file \texttt{output/shapes.kml}.  If everything went right, loading that into Google Earth will generate a triangle in the vicinity of Izmir, Turkey.
+
+\subsection*{Testing}
+
+It is important to have some tests to verify that the program is still working as expected.  Tests help prevent breakage in unrelated parts of the code manifesting themselves in hard to debug ways.  Gigantron uses Shoulda to create test suites.  
+
+There are many guides to using Shoulda and testing in general.  These are worth investigating for a more thorough coverage of the subject.
+
+In Gigantron, tests are located in \texttt{test/models} and \texttt{test/tasks}.  An example test for a model might look like
+
+\pagebreak
+
+\begin{code}{test-coordinate}{test/models/test\_coordinate.rb -- Testing}
+### @include "src/kml-shapes/test/models/test_coordinate.rb" 1
+### @end
+\end{code}
+
 
 % Sample code block
 %\begin{code}{name}{description}

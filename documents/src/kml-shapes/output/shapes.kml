@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1">
+  <Document>
+    <name>Gigantron Shape Demo</name>
+    <Placemark>
+      <name>shape1</name>
+      <Polygon>
+        <altitudeMode>absolute</altitudeMode>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>27.2632,38.6256,3000.0 26.7939,38.4916,3100.0 27.303,38.1067,3050.0 27.2632,38.6256,3000.0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+  </Document>
+</kml>

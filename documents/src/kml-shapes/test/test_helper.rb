@@ -7,9 +7,9 @@ silence_warnings { GTRON_ENV = :test }
 ENV['GTRON_ENV'] = 'test'
 
 require 'shoulda'
-require 'shoulda/private_helpers'
-require 'shoulda/general'
-require 'shoulda_active_record_helpers'
+require 'gigantron/shoulda/private_helpers'
+require 'gigantron/shoulda/general'
+require 'gigantron/shoulda/active_record_helpers'
 
 module Test
   module Unit
