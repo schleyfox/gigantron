@@ -35,13 +35,6 @@ class GigantronGenerator < RubiGen::Base
 
       m.file "test/tasks/test_import.rb", "test/tasks/test_import.rb"
 
-      m.directory "lib/shoulda"
-      m.file "lib/shoulda/general.rb", "lib/shoulda/general.rb"
-      m.file "lib/shoulda/private_helpers.rb", "lib/shoulda/private_helpers.rb"
-      m.file "lib/shoulda/active_record_helpers.rb", 
-        "lib/shoulda/active_record_helpers.rb"
-
-     
       m.dependency "install_rubigen_scripts", [destination_root, 'gigantron'], 
         :shebang => options[:shebang], :collision => :force
     end
