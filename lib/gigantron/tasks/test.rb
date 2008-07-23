@@ -1,16 +1,10 @@
 require 'rake/testtask'
 
-desc "Test all models and tasks"
-task :test do
-  errors = %w(test:models test:tasks).collect do |task|
-    begin
-      Rake::Task[task].invoke
-      nil
-    rescue => e
-      task
-    end
-  end.compact
-  abort "Errors running #{errors.to_sentence}!" if errors.any?
+desc "Run all tests"
+Rake::TestTask.new(:test) do |t|
+  t.libs << "test"
+  t.pattern = 'test/**/test_*.rb'
+  t.verbose = true
 end
 
 namespace :test do
